@@ -14,10 +14,6 @@ const divide = function(a, b) {
   return a / b;
 };
 
-console.log(add(1, 3));
-
-console.log(subtract(4, 3));
-
-console.log(multiply(5, 20));
-
-console.log(divide(34, 10));
+let leftNumber;
+let operator;
+let rightNumber;
