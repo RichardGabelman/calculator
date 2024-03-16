@@ -26,7 +26,7 @@ const operate = function(leftNum, operator, rightNum) {
     case "-":
       return subtract(leftNum, rightNum);
       break;
-    case "x":
+    case "X":
       return multiply(leftNum, rightNum);
       break;
     case "÷":
