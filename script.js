@@ -17,3 +17,20 @@ const divide = function(a, b) {
 let leftNumber;
 let operator;
 let rightNumber;
+
+const operate = function(leftNum, operator, rightNum) {
+  switch(operator) {
+    case "+":
+      return add(leftNum, rightNum);
+      break;
+    case "-":
+      return subtract(leftNum, rightNum);
+      break;
+    case "x":
+      return multiply(leftNum, rightNum);
+      break;
+    case "÷":
+      return divide(leftNum, rightNum);
+      break;
+  }
+};
