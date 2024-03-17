@@ -14,17 +14,18 @@ const divide = function(a, b) {
   return a / b;
 };
 
+
 let calc = {
   leftOperand: '0',
   operator: '',
-  operatorIndex: 0,
   rightOperand: '',
 };
 
 const display = document.querySelector(".text");
-let leftNumber;
-let operator;
-let rightNumber;
+
+const updateDisplay = function() {
+  display.textContent = calc.leftOperand + calc.operator + calc.rightOperand;
+};
 
 const operate = function(leftNum, operator, rightNum) {
   switch(operator) {
@@ -47,17 +48,23 @@ const numpad = document.querySelectorAll(".numpad");
 numpad.forEach(item => {
   item.addEventListener('click', e => {
     const num = item.textContent;
-    if (display.textContent === '0') {
-      display.textContent = num;
-    } else if (display.textContent.length < 9) {
-      display.textContent = display.textContent + num;
+    if (display.textContent.length > 9) {
+      return;
     }
-
+    // leftOperand case
     if (calc.operator === '') {
-      calc.leftOperand = display.textContent;
+      // Replacing default value case
+      if (calc.leftOperand === '0') {
+        calc.leftOperand = num
+      // Normal left operand case
+      } else {
+        calc.leftOperand = calc.leftOperand + num;
+      }
+      // Normal right operand case
     } else {
-      calc.rightOperand = display.textContent.substring(calc.operatorIndex);
+      calc.rightOperand = calc.rightOperand + num;
     }
+    updateDisplay();
   })
 });
 
@@ -66,15 +73,14 @@ decimal.addEventListener('click', e => {
   // Still on left operand
   if (calc.operator === '') {
     if (!calc.leftOperand.includes('.')) {
-      display.textContent = display.textContent + ".";
-      calc.leftOperand = display.textContent;
+      calc.leftOperand = calc.leftOperand + ".";
     }
   } else {
     if (!calc.rightOperand.includes('.')) {
-      display.textContent = display.textContent + ".";
-      calc.rightOperand = display.textContent;
+      calc.rightOperand = calc.rightOperand + ".";
     }
   }
+  updateDisplay();
 });
 
 const functions = document.querySelectorAll(".functions");
@@ -83,10 +89,31 @@ functions.forEach(item => {
   // No operator has been used yet
     if (calc.operator === '') {
       calc.operator = item.textContent;
-      calc.operatorIndex = display.textContent.length;
-      display.textContent = display.textContent + item.textContent;
     } else if (!calc.rightOperand === '') {
     // calculate the current operands and operator
     }
+    updateDisplay();
   })
+});
+
+const clear = document.querySelector("#clear");
+clear.addEventListener('click', e => {
+  calc.leftOperand = '0';
+  calc.operator = '';
+  calc.rightOperand = '';
+  updateDisplay();
+});
+
+const del = document.querySelector("#delete");
+del.addEventListener('click', e => {
+  if (calc.rightOperand != '') {
+    calc.rightOperand = calc.rightOperand.substring(0, calc.rightOperand.length - 1);
+  } else if (calc.operator != '') {
+    calc.operator = '';
+  } else if (calc.leftOperand.length > 1) {
+    calc.leftOperand = calc.leftOperand.substring(0, calc.leftOperand.length - 1);
+  } else {
+    calc.leftOperand = '0';
+  }
+  updateDisplay();
 });
