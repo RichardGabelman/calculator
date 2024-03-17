@@ -130,8 +130,6 @@ del.addEventListener('click', e => {
   } else if (calc.leftOperand.length > 1) {
     calc.leftOperand = calc.leftOperand.substring(0, calc.leftOperand.length - 1);
   } else {
-    console.log("we here");
-    console.log(typeof calc.leftOperand === 'string');
     calc.leftOperand = '0';
   }
   updateDisplay();
