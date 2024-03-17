@@ -23,7 +23,13 @@ let calc = {
   operator: '',
   rightOperand: '',
   operate() {
-    this.leftOperand = operate(+this.leftOperand, this.operator, +this.rightOperand);
+    let result = operate(+this.leftOperand, this.operator, +this.rightOperand);
+    if (result.length > 9) {
+      this.leftOperand = result.substring(0, 10);
+      window.alert("Result has been truncated!")
+    } else {
+      this.leftOperand = result;
+    }
     this.operator = '';
     this.rightOperand = '';
   }
@@ -47,7 +53,7 @@ const operate = function(leftNum, operator, rightNum) {
       return multiply(leftNum, rightNum);
       break;
     case "÷":
-      return divide(leftNum, rightNum);
+      return divide(leftNum, rightNum).toFixed(3);
       break;
   }
 };
@@ -56,7 +62,7 @@ const numpad = document.querySelectorAll(".numpad");
 numpad.forEach(item => {
   item.addEventListener('click', e => {
     const num = item.textContent;
-    if (display.textContent.length > 9) {
+    if (display.textContent.length > 10) {
       return;
     }
     // leftOperand case
