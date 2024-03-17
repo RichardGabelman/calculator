@@ -23,7 +23,7 @@ let calc = {
   operator: '',
   rightOperand: '',
   operate() {
-    let result = operate(+this.leftOperand, this.operator, +this.rightOperand);
+    let result = operate(+this.leftOperand, this.operator, +this.rightOperand).toString();
     if (result.length > 9) {
       this.leftOperand = result.substring(0, 10);
       window.alert("Result has been truncated!")
@@ -130,6 +130,8 @@ del.addEventListener('click', e => {
   } else if (calc.leftOperand.length > 1) {
     calc.leftOperand = calc.leftOperand.substring(0, calc.leftOperand.length - 1);
   } else {
+    console.log("we here");
+    console.log(typeof calc.leftOperand === 'string');
     calc.leftOperand = '0';
   }
   updateDisplay();
