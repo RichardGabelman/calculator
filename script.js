@@ -62,7 +62,7 @@ const numpad = document.querySelectorAll(".numpad");
 numpad.forEach(item => {
   item.addEventListener('click', e => {
     const num = item.textContent;
-    if (display.textContent.length > 10) {
+    if (display.textContent.length > 9) {
       return;
     }
     // leftOperand case
