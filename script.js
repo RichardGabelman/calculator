@@ -75,4 +75,18 @@ decimal.addEventListener('click', e => {
       calc.rightOperand = display.textContent;
     }
   }
-})
+});
+
+const functions = document.querySelectorAll(".functions");
+functions.forEach(item => {
+  item.addEventListener('click', e => {
+  // No operator has been used yet
+    if (calc.operator === '') {
+      calc.operator = item.textContent;
+      calc.operatorIndex = display.textContent.length;
+      display.textContent = display.textContent + item.textContent;
+    } else if (!calc.rightOperand === '') {
+    // calculate the current operands and operator
+    }
+  })
+});
