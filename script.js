@@ -11,6 +11,9 @@ const multiply = function(a, b) {
 };
 
 const divide = function(a, b) {
+  if (b == 0) {
+    return "Idiot!";
+  }
   return a / b;
 };
 
@@ -19,6 +22,11 @@ let calc = {
   leftOperand: '0',
   operator: '',
   rightOperand: '',
+  operate() {
+    this.leftOperand = operate(+this.leftOperand, this.operator, +this.rightOperand);
+    this.operator = '';
+    this.rightOperand = '';
+  }
 };
 
 const display = document.querySelector(".text");
@@ -86,12 +94,15 @@ decimal.addEventListener('click', e => {
 const functions = document.querySelectorAll(".functions");
 functions.forEach(item => {
   item.addEventListener('click', e => {
-  // No operator has been used yet
+    // Already used an operator case
+    if (calc.rightOperand != '') {
+      calc.operate();
+      updateDisplay();
+    }
+  // No operator
     if (calc.operator === '') {
       calc.operator = item.textContent;
-    } else if (!calc.rightOperand === '') {
-    // calculate the current operands and operator
-    }
+    } 
     updateDisplay();
   })
 });
@@ -117,3 +128,11 @@ del.addEventListener('click', e => {
   }
   updateDisplay();
 });
+
+const eq = document.querySelector("#enter");
+eq.addEventListener('click', e => {
+  if (calc.rightOperand != '') {
+    calc.operate();
+    updateDisplay();
+  }
+})
